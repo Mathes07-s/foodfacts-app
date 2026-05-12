@@ -139,3 +139,165 @@ header p {
   padding: 0.2rem 0.5rem;
   border-radius: 20px;
 }
+
+/* NavBar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2c3e50;
+  padding: 1rem 2rem;
+  color: white;
+}
+.nav-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  position: relative;
+}
+.nav-links a.active {
+  font-weight: bold;
+  border-bottom: 2px solid #3498db;
+}
+.badge {
+  background: #e74c3c;
+  border-radius: 20px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  margin-left: 0.3rem;
+}
+
+/* Home page header */
+.home-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.home-header h1 {
+  font-size: 2.5rem;
+  color: #2c3e50;
+}
+.home-header p {
+  color: #7f8c8d;
+}
+
+/* Detail Page */
+.detail-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+.back-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  color: #3498db;
+}
+.detail-card {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+}
+.detail-card img {
+  max-width: 200px;
+  border-radius: 8px;
+}
+.nutrition-detail {
+  text-align: left;
+  margin: 1rem 0;
+}
+.save-btn {
+  background: #27ae60;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 30px;
+  cursor: pointer;
+}
+.save-btn:hover {
+  background: #219a52;
+}
+
+/* Saved Page */
+.saved-page {
+  max-width: 800px;
+  margin: 2rem auto;
+}
+.saved-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.saved-card {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  gap: 1rem;
+}
+.saved-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.saved-info {
+  flex: 1;
+}
+.saved-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+.saved-actions button {
+  padding: 0.3rem 0.8rem;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.saved-actions button:first-child {
+  background: #3498db;
+  color: white;
+}
+.saved-actions button:last-child {
+  background: #e74c3c;
+  color: white;
+}
+
+/* Error and validation styles */
+.error-message, .validation-error {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  border-radius: 8px;
+  margin: 1rem auto;
+  max-width: 400px;
+  text-align: center;
+}
+.validation-error {
+  background: #fff3cd;
+  color: #856404;
+}
+.loading {
+  text-align: center;
+  font-size: 1.2rem;
+  margin: 2rem;
+}
+.empty-state {
+  text-align: center;
+  padding: 3rem;
+  background: white;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 400px;
+  color: #7f8c8d;
+}
