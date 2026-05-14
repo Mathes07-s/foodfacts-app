@@ -1,57 +1,36 @@
-import { useState } from 'react';
-import SearchBar from './components/SearchBar';
-import FoodList from './components/FoodList';
+import { useReducer } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import NavBar from './components/NavBar';
+import HomePage from './pages/HomePage';
+import DetailPage from './pages/DetailPage';
+import SavedPage from './pages/SavedPage';
 import './App.css';
 
-function App() {
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [searched, setSearched] = useState(false);
+// Reducer for saved items
+const savedReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD':
+      // Prevent duplicates
+      if (state.some(item => item.code === action.product.code)) return state;
+      return [...state, action.product];
+    case 'REMOVE':
+      return state.filter(item => item.code !== action.productCode);
+    default:
+      return state;
+  }
+};
 
-  const handleSearch = async (query) => {
-    setLoading(true);
-    setSearched(true);
-    try {
-      const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(
-        query
-      )}&search_simple=1&action=process&json=1&page_size=20`;
-      const response = await fetch(url);
-      const data = await response.json();
-      const filtered = data.products.filter(
-        (p) => p.product_name && p.product_name.trim() !== ''
-      );
-      setResults(filtered);
-    } catch (error) {
-      console.error('Fetch error:', error);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+function App() {
+  const [saved, dispatch] = useReducer(savedReducer, []);
 
   return (
     <div className="app">
-      <header>
-        <h1>🍎 FoodFacts</h1>
-        <p>Search any food – get real nutrition data</p>
-      </header>
-      <SearchBar onSearch={handleSearch} />
-
-      {loading && <div className="loading">Loading...</div>}
-
-      {!loading && !searched && (
-        <div className="empty-state">
-          <p>✨ Type a food name above and hit Search ✨</p>
-        </div>
-      )}
-
-      {!loading && searched && results.length === 0 && (
-        <div className="empty-state">
-          <p>😕 No results found. Try another food.</p>
-        </div>
-      )}
-
-      {!loading && results.length > 0 && <FoodList products={results} />}
+      <NavBar savedCount={saved.length} />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/product/:barcode" element={<DetailPage saved={saved} dispatch={dispatch} />} />
+        <Route path="/saved" element={<SavedPage saved={saved} dispatch={dispatch} />} />
+      </Routes>
     </div>
   );
 }
