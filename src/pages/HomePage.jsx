@@ -1,4 +1,8 @@
 import { useState } from 'react';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 import SearchBar from '../components/SearchBar';
 import FoodList from '../components/FoodList';
 import ErrorMessage from '../components/ErrorMessage';
@@ -14,30 +18,36 @@ function HomePage() {
   };
 
   return (
-    <div className="home-page">
-      <header className="home-header">
-        <h1>🍎 FoodFacts</h1>
-        <p>Search any food – get real nutrition data</p>
-      </header>
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Search Any Food
+      </Typography>
+      <Typography variant="subtitle1" align="center" color="text.secondary" sx={{ mb: 4 }}>
+        Get real nutrition facts from Open Food Facts
+      </Typography>
       <SearchBar onSearch={handleSearch} />
 
-      {loading && <div className="loading">Loading...</div>}
+      {loading && (
+        <Box display="flex" justifyContent="center" my={4}>
+          <CircularProgress />
+        </Box>
+      )}
       {error && <ErrorMessage message={error} />}
 
       {!loading && !searched && !error && (
-        <div className="empty-state">
-          <p>✨ Type a food name above and hit Search ✨</p>
-        </div>
+        <Box textAlign="center" py={8}>
+          <Typography variant="body1">✨ Type a food name above and hit Search ✨</Typography>
+        </Box>
       )}
 
       {!loading && searched && results.length === 0 && !error && (
-        <div className="empty-state">
-          <p>😕 No results found. Try another food.</p>
-        </div>
+        <Box textAlign="center" py={8}>
+          <Typography variant="body1">😕 No results found. Try another food.</Typography>
+        </Box>
       )}
 
       {!loading && results.length > 0 && <FoodList products={results} />}
-    </div>
+    </Container>
   );
 }
 

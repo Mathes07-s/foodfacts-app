@@ -1,3 +1,4 @@
+// src/hooks/useFoodSearch.js (same as Part 2, but ensure Axios is used)
 import { useState } from 'react';
 import axios from 'axios';
 
@@ -22,18 +23,12 @@ const useFoodSearch = () => {
         }
       });
       const products = response.data.products;
-      // Filter out products without a name
       const filtered = products.filter(p => p.product_name && p.product_name.trim() !== '');
       setResults(filtered);
     } catch (err) {
-      if (err.response) {
-        setError('Server error. Please try again later.');
-      } else if (err.request) {
-        setError('Network error. Check your internet connection.');
-      } else {
-        setError('An error occurred. Please try again.');
-      }
-      console.error(err);
+      if (err.response) setError('Server error');
+      else if (err.request) setError('Network error');
+      else setError('An error occurred');
     } finally {
       setLoading(false);
     }
