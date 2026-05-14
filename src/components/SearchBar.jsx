@@ -1,4 +1,7 @@
 import { useState } from 'react';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');
@@ -20,17 +23,20 @@ function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="search-form">
-      <input
-        type="text"
+    <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 1, mb: 4, alignItems: 'flex-start' }}>
+      <TextField
+        fullWidth
+        label="Search for a food"
+        variant="outlined"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        placeholder="Search for a food (e.g., banana, oats)..."
-        className="search-input"
+        error={!!validationError}
+        helperText={validationError}
       />
-      <button type="submit" className="search-btn">Search</button>
-      {validationError && <div className="validation-error">{validationError}</div>}
-    </form>
+      <Button type="submit" variant="contained" color="primary" sx={{ height: 56 }}>
+        Search
+      </Button>
+    </Box>
   );
 }
 
